@@ -1,6 +1,5 @@
 use nom::{
-    IResult, Parser, bytes::complete::tag,
-    character::complete, multi::separated_list1,
+    IResult, Parser, bytes::complete::tag, character::complete, multi::separated_list1,
     sequence::separated_pair,
 };
 
@@ -16,25 +15,18 @@ pub fn process(input: &str) -> miette::Result<String> {
 
     let total: u64 = ranges
         .into_iter()
-        .map(|range| {
-            range
-                .filter(|n| is_invalid(*n))
-                .sum::<u64>()
-        })
+        .map(|range| range.filter(|n| is_invalid(*n)).sum::<u64>())
         .sum();
 
     Ok(total.to_string())
 }
 
-fn parse_ranges(
-    input: &str,
-) -> IResult<&str, Vec<(u64, u64)>> {
+fn parse_ranges(input: &str) -> IResult<&str, Vec<(u64, u64)>> {
     separated_list1(tag(","), parse_range).parse(input)
 }
 
 fn parse_range(input: &str) -> IResult<&str, (u64, u64)> {
-    separated_pair(complete::u64, tag("-"), complete::u64)
-        .parse(input)
+    separated_pair(complete::u64, tag("-"), complete::u64).parse(input)
 }
 
 fn is_invalid(n: u64) -> bool {

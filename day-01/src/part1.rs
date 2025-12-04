@@ -5,16 +5,8 @@ pub fn process(input: &str) -> miette::Result<String> {
     for line in input.lines() {
         let (prefix, n) = line.split_at(1);
         match prefix {
-            "L" => {
-                dial_pos = (dial_pos
-                    - n.parse::<i32>().unwrap())
-                .rem_euclid(100)
-            }
-            "R" => {
-                dial_pos = (dial_pos
-                    + n.parse::<i32>().unwrap())
-                .rem_euclid(100)
-            }
+            "L" => dial_pos = (dial_pos - n.parse::<i32>().unwrap()).rem_euclid(100),
+            "R" => dial_pos = (dial_pos + n.parse::<i32>().unwrap()).rem_euclid(100),
             _ => unreachable!(),
         }
         if dial_pos == 0 {
