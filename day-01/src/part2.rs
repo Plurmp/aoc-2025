@@ -5,7 +5,7 @@ pub fn process(input: &str) -> miette::Result<String> {
     for line in input.lines() {
         let (prefix, n) = line.split_at(1);
         let n = n.parse::<i32>().unwrap();
-        
+
         let next = match prefix {
             "L" => dial_pos - n,
             "R" => dial_pos + n,
@@ -17,7 +17,7 @@ pub fn process(input: &str) -> miette::Result<String> {
             zero_count += 1;
         }
         dial_pos = rem;
-    } 
+    }
     Ok(zero_count.to_string())
 }
 
