@@ -3,7 +3,7 @@ use std::collections::HashSet;
 
 #[tracing::instrument]
 pub fn process(input: &str) -> miette::Result<String> {
-    let mut roll_locations: HashSet<_> = input
+    let roll_locations: HashSet<_> = input
         .lines()
         .enumerate()
         .flat_map(|(y, line)| {
