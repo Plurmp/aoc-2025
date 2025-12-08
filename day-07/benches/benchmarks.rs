@@ -1,4 +1,4 @@
-use day_05::*;
+use day_07::*;
 
 fn main() {
     // Run registered benchmarks.

@@ -21,7 +21,7 @@ pub fn process(input: &str) -> miette::Result<String> {
         .collect::<String>()
         .len() as i32;
     let height = input.lines().collect::<Vec<_>>().len() as i32;
-    
+
     let accessible_rolls = roll_locations
         .iter()
         .filter(|roll| check_adjacent(**roll, &roll_locations, width, height) < 4)

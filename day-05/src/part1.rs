@@ -1,6 +1,12 @@
 use std::ops::RangeInclusive;
 
-use nom::{IResult, Parser, bytes::complete::tag, character::complete::{self, line_ending}, multi::separated_list1, sequence::separated_pair};
+use nom::{
+    IResult, Parser,
+    bytes::complete::tag,
+    character::complete::{self, line_ending},
+    multi::separated_list1,
+    sequence::separated_pair,
+};
 use range_set_blaze::RangeSetBlaze;
 
 #[tracing::instrument]
@@ -9,10 +15,7 @@ pub fn process(input: &str) -> miette::Result<String> {
 
     let range_set = RangeSetBlaze::from_iter(ranges.into_iter());
 
-    let fresh = ids
-        .into_iter()
-        .filter(|id| range_set.contains(*id))
-        .count();
+    let fresh = ids.into_iter().filter(|id| range_set.contains(*id)).count();
 
     Ok(fresh.to_string())
 }
@@ -30,7 +33,8 @@ fn parse_ranges(input: &str) -> IResult<&str, Vec<RangeInclusive<u64>>> {
 }
 
 fn parse_range(input: &str) -> IResult<&str, RangeInclusive<u64>> {
-    let (input, (start, end)) = separated_pair(complete::u64, tag("-"), complete::u64).parse(input)?;
+    let (input, (start, end)) =
+        separated_pair(complete::u64, tag("-"), complete::u64).parse(input)?;
 
     Ok((input, start..=end))
 }
